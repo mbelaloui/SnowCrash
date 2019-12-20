@@ -6,3 +6,14 @@ cd / && find . -user flag00 -exec cat {} +
 or 
 cd / && find . -user flag00 -exec cat {} \; -and -print
 
+
+./rofs/usr/sbin/john
+./usr/sbin/john
+
+cat the file > result :
+cdiiddwpgswtgt
+
+Then decrypt this expression in the decode.fr web site
+Using brute force with the cesar algorithm, we found that the 15 offset has sence
+so > 
+nottoohardhere
