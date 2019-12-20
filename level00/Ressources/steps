@@ -1,0 +1,8 @@
+In The video, we have to find a file belonging to flag00 to pass the fist level
+
+so :
+
+cd / && find . -user flag00 -exec cat {} +
+or 
+cd / && find . -user flag00 -exec cat {} \; -and -print
+
