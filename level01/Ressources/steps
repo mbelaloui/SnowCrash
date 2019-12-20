@@ -1,0 +1,14 @@
+looking in the file /etc/passwd
+
+cat /etc/passwd
+
+found > flag01:42hDRfypTqqnw:3001:3001::/home/flag/flag01:/bin/bash
+
+using john installed in Kali Linux
+
+echo 'flag01:42hDRfypTqqnw:3001:3001::/home/flag/flag01:/bin/bash' >  crack.password.db
+
+and finally
+
+john crack.password.db 
+and bingo > abcdefg
