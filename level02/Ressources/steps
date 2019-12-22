@@ -1,0 +1,15 @@
+looking in the pcap file withe the commande
+
+tcpdump -r level02.pcap -X -A
+
+we can deduce that this is an interception of network traffic by the presence of loging and password.
+
+by reading the data part of the packets after the one who has password in his data part
+
+we can read this :
+
+66 74 5f 77 61 6e 64 72 7f 7f 7f 4e 44 52 65 6c 7f 4c 30 4c 
+
+echo  66 74 5f 77 61 6e 64 72 7f 7f 7f 4e 44 52 65 6c 7f 4c 30 4c | xxd -r -p
+
+> ft_waNDReL0L
