@@ -12,8 +12,8 @@ in the same time we have withe :  nm level03
          U getegid@@GLIBC_2.0
          U geteuid@@GLIBC_2.0
 080484a4 T main
-         U setresgid@@GLIBC_2.0
-         U setresuid@@GLIBC_2.0
+         U setresgid@@GLIBC_2.0   real uid <udi of user level03> 
+         U setresuid@@GLIBC_2.0   effective UID  <udi of flag03 the owner of the file>
          U system@@GLIBC_2.0
 ]
 
