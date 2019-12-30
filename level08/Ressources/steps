@@ -1,0 +1,65 @@
+revesing engineer the binary levl08
+
+level08@SnowCrash:~$ strings level08 
+printf
+
+strstr :	we supose that in the source code the program will try to compare a string with another
+
+	read
+	open
+	__libc_start_main
+	write
+	%s [file to read]
+
+token		may be this is the str compared with
+You may not access '%s' : error code that is printed if the comparaison is not or is ok
+
+
+Unable to open %s : 
+Unable to read fd %d:
+error if the file is not opend and the programe can not get an fd to read the file
+
+we can supose that the binary will try to read a file do some comparaison and if the comparaision is ok/not ok show's the contenant of the file or wxite the programe
+
+
+ls -la 
+
+>level08@SnowCrash:~$ ls -la
+-rwsr-s---+ 1 flag08  level08 8617 Mar  5  2016 level08
+-rw-------  1 flag08  flag08    26 Mar  5  2016 token
+
+We have a binary file and a file named level08 and token 
+the binary file is bellong to flag08 user and level08 group
+the token file bellong to the flag08
+
+level08@SnowCrash:~$ ./level08 /tmp/t
+test
+
+./level08 token 
+You may not access 'token'
+
+So we can supose that the binary file try to read file and print the contenant but if the name of the file is token the binary print an error message 
+
+
+we can try to "contourner" la contrainte " that don't let us to read the file flag
+with creating a link to this file in the tmp dir
+
+ 
+level08@SnowCrash:~$ ln -s ~/token /tmp/bingo ; ./level08 /tmp/bingo
+quif5eloekouj29ke0vouxean
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
