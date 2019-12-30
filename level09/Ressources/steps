@@ -1,0 +1,142 @@
+level09@SnowCrash:~$ strings level09 
+putchar      the program put char and print it in the stdout
+stdout
+fputc
+
+getenv
+stderr
+ptrace
+fwrite
+
+open
+
+You should not reverse this
+Injection Linked lib detected exit..
+/etc/ld.so.preload
+/proc/self/maps
+/proc/self/maps is unaccessible, probably a LD_PRELOAD attempt exit..
+
+You need to provied only one arg.
+LD_PRELOAD detected through memory maps exit ..
+
+
+tring to execute the binary
+
+level09@SnowCrash:~$ strings token 
+f4kmm6p|=
+
+This is not the token to long in to the flag09 user...
+
+certenly this is hashed with some function so tring to reverse engineer this
+
+
+level09@SnowCrash:~$ ./level09 0
+0
+level09@SnowCrash:~$ ./level09 00
+01
+level09@SnowCrash:~$ ./level09 000
+012
+level09@SnowCrash:~$ ./level09 0000
+0123
+
+so the programe seams that is doing puting the args[1] and print it with some shift
+the programe add the index of eatch char to the char and print it 
+
+so  man ascii and revers this string   f4kmm6p|=
+
+./levle09 token tpmhr
+
+s =  tpmhr
+-
+i =  01234
+     token
+
+???
+
+strings token
+s=  f4kmm6p|=
+-
+i=  012345678
+    f3iji1ju5
+
+
+level09@SnowCrash:~$ hexdump token -C
+00000000  66 34 6b 6d 6d 36 70 7c  3d 82 7f 70 82 6e 83 82  |f4kmm6p|=..p.n..|
+00000010  44 42 83 44 75 7b 7f 8c  89 0a                    |DB.Du{....|
+0000001a
+
+ls -la 
+level09@SnowCrash:~$ ls -la
+total 24
+-rwsr-sr-x 1 flag09  level09 7640 Mar  5  2016 level09
+----r--r-- 1 flag09  level09   26 Mar  5  2016 token
+
+
+the binary file was certainl right telling us that we should not reverse it
+
+so we will focus on the file directly
+
+level09@SnowCrash:~$ cat token 
+f4kmm6p|=�p�n��DB�Du{��
+
+we can observe that the begining od the string is the string that we get previusly by encrypt the string token 
+
+so we can wright a script to get the token
+
+#include <stdio.h>
+#include <string.h>
+
+int main(int argc, char**argv)
+{
+
+	if (argc != 2)
+		return (0);
+	int len = strlen(argv[1]);
+	int i = 0;
+	while(i < len)
+	{
+		printf("%d - %d  %d  %c \n", 
+				((char)argv[1][i]),
+				i,
+				((char)argv[1][i]) - i,
+				((char)argv[1][i]) - i);
+		i++;
+	}
+	printf("\n");
+	return (0);
+}
+
+
+when debugin the script we observe that we have negativ format so we supose that it du to shell display so we will try to do it manualy using the output of the hexdump
+
+using the hex calcolator 
+|f4kmm6p|=..p.n..|
+66 - 0 = 66	= f
+34 - 1 = 33	= 3
+6b - 2 = 69	= i
+6d - 3 = 6a	= j
+6d - 4 = 69	= i
+36 - 5 = 31	= 1
+70 - 6 = 6a	= j
+7c - 7 = 75	= u
+3d - 8 = 35	= 5
+82 - 9 = 79	= y
+7f - a = 75	= u
+70 - b = 65	= e
+82 - c = 76	= v
+6e - d = 61	= a
+83 - e = 75	= u
+82 - f = 73	= s
+|DB.Du{....|
+44 - 10 = 34	= 4
+42 - 11 = 31	= 1
+83 - 12 = 71	= q
+44 - 13 = 31	= 1
+75 - 14 = 61	= a
+7b - 15 = 66	= f
+7f - 16 = 69	= i
+8c - 17 = 75	= u
+89 - 18 = 71	= q
+0a - 19 = ?? /n  /0
+
+>= f3iji1ju5yuevaus41q1afiuq
