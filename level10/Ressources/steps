@@ -78,7 +78,7 @@ ln -sf /tmp/bingo /tmp/s;
 ln -sf ~/token /tmp/s;
 done
 
-	in another window we listen to the 6969 port with nc -l 9696 
+	in another window we listen to the 6969 port with nc -l 6969 
 
 	and in other terminal we do this
 
