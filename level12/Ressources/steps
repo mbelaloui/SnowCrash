@@ -2,7 +2,7 @@ level12@SnowCrash:~$ ls -l
 total 4
 -rwsr-sr-x+ 1 flag12 level12 464 Mar  5  2016 level12.pl
 
-the file is owned by the flag12 group
+The file is owned by the flag12 group
 
 #!/usr/bin/env perl
 # localhost:4646
