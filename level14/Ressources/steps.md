@@ -131,7 +131,7 @@ Here we have the uid of the level 14, so let's change this with the uid of the f
 cat /etc/passwd 
 ....
 flag14:x:3014:3014::/home/flag/flag14:/bin/bash
-``
+```
 
 ```
 (gdb) set $eax=3014
