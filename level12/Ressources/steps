@@ -6,11 +6,11 @@ The file is owned by the flag12 group
 
 #!/usr/bin/env perl
 # localhost:4646
-we supose that we have a service running in the localhost on port 4646
+we suppose that we have a service running in the localhost on port 4646
 so >> level12@SnowCrash:~$ curl localhost:4646
 ..
 
-The most importanat function here is the f function
+The most important function here is the f function
 it's get the first arg [x] and do actions like uppercase and del all after space
 
 $xx = $_[0];
