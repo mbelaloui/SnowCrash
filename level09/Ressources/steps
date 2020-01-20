@@ -140,3 +140,20 @@ using the hex calcolator
 0a - 19 = ?? /n  /0
 
 >= f3iji1ju5yuevaus41q1afiuq
+
+
+
+or  in python
+
+import sys
+hex_array=['66', '34' , '6b' , '6d', '6d', '36', '70', '7c', '3d', '82', '7f', '70', '82', '6e', '83', '82', '44', '42', '83', '44', '75', '7b', '7f', '8c', '89']
+array = []
+for el in hex_array:
+    array.append(int(el, 16))
+i = 0
+s = ""
+for letter in array:
+    c = letter - i
+    s += chr(c)
+    i += 1
+print(s)
